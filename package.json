@@ -1,0 +1,33 @@
+{
+  "name": "element-import-excel",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "This is an import excel component based on element-plus",
+  "author": "zhentengli <xingxingmofashu@outlook.com>",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
+  },
+  "main": "./dist/element-import-excel.umd.min.js",
+  "license": "MIT",
+  "keywords": [
+    "element",
+    "import",
+    "excel",
+    "import-excel"
+  ],
+  "dependencies": {
+    "all-trim": "^1.1.4",
+    "async-validator": "^4.2.5",
+    "element-plus": "^2.3.0",
+    "vue": "^3.2.45",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.0.0",
+    "typescript": "^4.9.3",
+    "vite": "^4.1.0",
+    "vue-tsc": "^1.0.24"
+  }
+}
