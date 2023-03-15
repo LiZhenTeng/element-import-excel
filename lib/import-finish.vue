@@ -12,7 +12,7 @@
     <div style="text-align: center;">
       <div class="m">
         <el-icon class="icon">
-          <CircleCheck />
+          <circle-check />
         </el-icon>
       </div>
       <div>导入完成，导入明细请查看详情！</div>

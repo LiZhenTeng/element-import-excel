@@ -7,7 +7,7 @@ import path from "path";
 export default defineConfig({
   plugins: [vue()],
   build: {
-    outDir: 'element-import-excel',
+    outDir: 'element-import-excel/dist',
     lib: {
       entry: path.resolve(__dirname, "./lib/index.ts"),
       name: "element-import-excel",
