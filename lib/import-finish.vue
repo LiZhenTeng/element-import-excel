@@ -10,8 +10,8 @@
   </div>
   <div v-else>
     <div style="text-align: center;">
-      <div class="m">
-        <el-icon class="icon">
+      <div style="margin-top: 20px">
+        <el-icon style="font-size: 150px;line-height: 1.2;color: #67c23a;">
           <circle-check />
         </el-icon>
       </div>
@@ -43,14 +43,3 @@ const handleFinish = () => {
   emit("finish");
 }
 </script>
-<style scoped>
-.m {
-  margin-top: 20px
-}
-
-.icon {
-  font-size: 150px;
-  line-height: 1.2;
-  color: #67c23a;
-}
-</style>

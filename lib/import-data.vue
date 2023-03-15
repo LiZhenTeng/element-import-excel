@@ -10,7 +10,7 @@
         </template>
         <!-- 数据列表 -->
         <h1 style="margin-top: 20px;">数据列表</h1>
-        <el-table v-loading="isLoading" :data="tableData" :border="true" style="width: 100%" row-key="key">
+        <el-table v-loading="isLoading" :data="tableData" :border="true" style="width: 100%">
             <el-table-column :align="'center'" type="index" label="行号" column-key="key" prop="key" width="50" />
             <template v-for="(label, field) of fields">
                 <el-table-column :column-key="field" :label="label" :prop="field" :align="'left'" header-align="center">

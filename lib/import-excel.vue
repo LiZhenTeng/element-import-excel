@@ -6,8 +6,8 @@
       <el-step title="确认数据" />
       <el-step title="完成" />
     </el-steps>
-    <import-upload :fields="fields" :tips="tips" @upload="handleUpload" v-if="currentStep === 1" />
-    <import-data :append="append" :fields="fields" :formatter="formatter" :request-fn="requestFn" :rules="rules"
+    <import-upload :fields="fieldsCopy" :tips="tips" @upload="handleUpload" v-if="currentStep === 1" />
+    <import-data :append="append" :fields="fieldsCopy" :formatter="formatter" :request-fn="requestFn" :rules="rules"
       :table-data="tableData" :scroll="scroll" :can-next="canNext" @pre="handleStep3Pre" v-if="currentStep === 2" />
     <br>
     <import-finish @finish="handleFinish" v-if="currentStep === 3" :show-finish-result="showFinishResult"
@@ -74,10 +74,12 @@ const tableData = ref<Array<any>>([])
 const columns = ref<Array<any>>([]);
 const currentStep = ref(1);
 const canNext = ref(true);
-const fields = ref<{ [key: string]: any }>({});
+const fieldsCopy = ref<{ [key: string]: any }>({});
+
+fieldsCopy.value = props.fields;
 
 const handleUpload = (c: Array<any>, t: Array<any>, fileName: string, f: { [key: string]: any }) => {
-  fields.value = f;
+  fieldsCopy.value = f;
   columns.value = c;
   tableData.value = t;
   if (props.returnFileName) {

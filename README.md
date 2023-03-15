@@ -9,8 +9,6 @@ $ yarn add element-import-excel
 
 ## ✨ Features
 
-- 🍖 More customizable
-- 🍒 Support Typescript
 
 ## 🎯 install
 

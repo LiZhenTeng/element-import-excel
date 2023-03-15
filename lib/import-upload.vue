@@ -90,9 +90,6 @@ const beforeUpload = async (file: File) => {
     try {
         let excelData: { columns: Array<any>, tableData: Array<any> } | null = await excel(file);
         if (!excelData) {
-            window.console.error(
-                "excel解析异常，可能是时间格式为“X月X日”导致的。"
-            );
             ElNotification.error({ title: '上传出错了', message: '文件读取出错，可能是时间格式为“X月X日”导致的，请重新上传。' });
             return false;
         }
@@ -107,7 +104,6 @@ const beforeUpload = async (file: File) => {
                     : arrToObj(columns);
 
             let isVaild = checkTableTitle(columns, props.fields);
-            console.log(goNext)
             emit(
                 "upload",
                 columns,
