@@ -78,7 +78,7 @@ const emit = defineEmits(['pre'])
 const goNext: Function | undefined = inject('goNext')
 
 const isLoading = ref(false)
-const errorData = ref({});
+const errorData = ref<{ [key: string]: any }>({});
 const dataPagination = ref({
     defaultCurrent: 1,
     defaultPageSize: 10,
@@ -115,15 +115,15 @@ const validateData = () => {
         });
         props.tableData.forEach((item, index) => {
             try {
-                validator.validate(item, (errors) => {
+                validator.validate(item, (errors: any) => {
                     if (errors) {
                         e[index] = []
-                        errors.forEach((error) => {
+                        errors.forEach((error: any) => {
                             e[index][error.field] = error.message
                         })
                     }
                 })
-            } catch (ex) {
+            } catch (ex: any) {
                 e[index] = []
                 e[index]['key'] = ex.message;
             }
@@ -136,7 +136,7 @@ const handlePre = () => {
     emit('pre')
 }
 
-const findKey = (obj, value, compare = (a, b) => a === b) => {
+const findKey = (obj: { [key: string]: any }, value: any, compare = (a: any, b: any) => a === b) => {
     let key = Object.keys(obj).find(k => compare(obj[k], value))
     if (!isNaN(Number(key))) {
         key = Number(key).toString()
@@ -146,23 +146,6 @@ const findKey = (obj, value, compare = (a, b) => a === b) => {
 
 const changeData = (tableData: Array<any>) => {
     let dataSource = tableData;
-    const formatter = props.formatter;
-    if (formatter) {
-        dataSource = dataSource.map((item) => {
-            let data = { ...item };
-            Object.keys(item).forEach(key => {
-                if (formatter[key]) {
-                    if (typeof formatter[key] === 'function') {
-                        data[key] = formatter[key](item[key], item)
-                    } else {
-                        data[key] = findKey(formatter[key], item[key])
-                    }
-                }
-            })
-            data['__origin'] = item;
-            return data;
-        })
-    }
     return dataSource
 }
 

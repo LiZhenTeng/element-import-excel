@@ -1,9 +1,10 @@
 import { allTrim } from './allTrim'
 import { utils, read } from 'xlsx';
+import type { WorkSheet } from 'xlsx';
 
-// 获取标题行
-const getHeaderRow = (sheet) => {
+const getHeaderRow = (sheet: WorkSheet) => {
     const headers = new Array()
+    if(!sheet['!ref']) throw Error("标题获取失败")
     const range = utils.decode_range(sheet['!ref'])
     let C
     const R = range.s.r
@@ -17,8 +18,7 @@ const getHeaderRow = (sheet) => {
     return headers
 }
 
-// 获取数组
-const getArrData = (excelData) => {
+const getArrData = (excelData:any) => {
     const workbook = read(excelData, { type: 'array', cellDates: true, cellText: false })
     const firstSheetName = workbook.SheetNames[0]
     const worksheet = workbook.Sheets[firstSheetName]
@@ -38,7 +38,7 @@ const getArrData = (excelData) => {
     }
 }
 
-export const excel = (file): Promise<{ columns: Array<any>, tableData: Array<any> } | null> => {
+export const excel = (file:File): Promise<{ columns: Array<any>, tableData: Array<any> } | null> => {
     return new Promise((resolve, reject) => {
         const reader = new FileReader()
         reader.readAsArrayBuffer(file)

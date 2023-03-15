@@ -8,8 +8,7 @@
     </el-steps>
     <import-upload :fields="fields" :tips="tips" @upload="handleUpload" v-if="currentStep === 1" />
     <import-data :append="append" :fields="fields" :formatter="formatter" :request-fn="requestFn" :rules="rules"
-      :table-data="tableData" :scroll="scroll" :can-next="canNext" @pre="handleStep3Pre"
-      v-if="currentStep === 2" />
+      :table-data="tableData" :scroll="scroll" :can-next="canNext" @pre="handleStep3Pre" v-if="currentStep === 2" />
     <br>
     <import-finish @finish="handleFinish" v-if="currentStep === 3" :show-finish-result="showFinishResult"
       :data-source-columns="finishDataColumns" :data-source="finishDataSource" />
@@ -47,24 +46,11 @@ const props = defineProps({
     type: Boolean,
     required: true,
   },
-  title:  String,
+  title: String,
   append: Object,
   tips: Array,
   rules: Object,
-  formatter: {
-    type: [Object, Function],
-    validator(formatter: Object | Function) {
-      if (formatter instanceof Object) {
-        Object.keys(formatter).forEach(key => {
-          if (!(formatter[key] instanceof Function)) {
-            console.error(`${key}的值必须为函数`);
-            return false;
-          }
-        })
-      }
-      return true;
-    },
-  },
+  formatter: [Object, Function],
   dialogWidth: {
     type: String,
     default: "80%",
@@ -84,13 +70,13 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['goPre', 'close', 'finish'])
-const tableData = ref([])
-const columns = ref([]);
+const tableData = ref<Array<any>>([])
+const columns = ref<Array<any>>([]);
 const currentStep = ref(1);
 const canNext = ref(true);
-const fields = ref({});
+const fields = ref<{ [key: string]: any }>({});
 
-const handleUpload = (c, t, fileName, f) => {
+const handleUpload = (c: Array<any>, t: Array<any>, fileName: string, f: { [key: string]: any }) => {
   fields.value = f;
   columns.value = c;
   tableData.value = t;
@@ -101,7 +87,7 @@ const handleUpload = (c, t, fileName, f) => {
 const initData = () => {
   tableData.value = [];
   columns.value = [];
-  currentStep.value = 0;
+  currentStep.value = 1;
 }
 const handlClose = () => {
   initData();

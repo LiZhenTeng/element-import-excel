@@ -1,0 +1,19 @@
+{
+  "name": "element-import-excel",
+  "version": "1.0.4",
+  "type": "module",
+  "description": "This is an import excel component based on element-plus",
+  "author": "zhentengli <xingxingmofashu@outlook.com>",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "main": "./element-import-excel.umd.cjs",
+  "license": "ISC",
+  "keywords": [
+    "element",
+    "import",
+    "excel",
+    "import-excel"
+  ],
+  "homepage": "https://github.com/LiZhenTeng/element-import-excel"
+}

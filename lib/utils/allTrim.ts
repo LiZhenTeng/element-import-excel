@@ -1,11 +1,11 @@
-export const allTrim = (data, isTrimKey) => {
+export const allTrim = (data: any, isTrimKey: any) => {
     const type = Object.prototype.toString.call(data)
     if (type === '[object String]') {
         // 普通字符串
         data = data.trim()
     } else if (type === '[object Array]') {
         // 数组
-        data = data.map(item => allTrim(item, isTrimKey))
+        data = data.map((item: any) => allTrim(item, isTrimKey))
     } else if (type === '[object Object]') {
         // 对象
         for (let key in data) {
