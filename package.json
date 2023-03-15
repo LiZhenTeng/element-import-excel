@@ -17,6 +17,7 @@
     "excel",
     "import-excel"
   ],
+  "homepage": "https://github.com/LiZhenTeng/element-import-excel",
   "dependencies": {
     "all-trim": "^1.1.4",
     "async-validator": "^4.2.5",
