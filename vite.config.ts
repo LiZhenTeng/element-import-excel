@@ -20,6 +20,7 @@ export default defineConfig({
           vue: "Vue"
         }
       }
-    }
+    },
+    cssCodeSplit:true
   }
 })
