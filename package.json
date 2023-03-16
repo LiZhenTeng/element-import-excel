@@ -30,7 +30,6 @@
   "dependencies": {
     "all-trim": "^1.1.4",
     "async-validator": "^4.2.5",
-    "element-import-excel": "^1.0.9",
     "element-plus": "^2.3.0",
     "vue": "^3.2.45",
     "xlsx": "^0.18.5"
