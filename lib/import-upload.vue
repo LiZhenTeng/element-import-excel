@@ -20,8 +20,12 @@
 <script lang="ts" setup>
 import { excel } from './utils/excel';
 import { inject, ref } from 'vue'
-import { ElNotification } from 'element-plus';
+import { ElNotification, ElAlert, ElUpload, ElIcon } from 'element-plus';
 import { UploadFilled } from '@element-plus/icons-vue'
+import 'element-plus/es/components/notification/style/css'
+import 'element-plus/es/components/alert/style/css'
+import 'element-plus/es/components/upload/style/css'
+import 'element-plus/es/components/icon/style/css'
 
 const props = defineProps({
     tips: Array<any>,
@@ -58,7 +62,7 @@ const checkTableTitle = (columns: Array<any>, fields: Object) => {
     return isVaild;
 }
 
-const changeDatakeyAndFilter = (arr: Array<any>, columns:Array<any>) => {
+const changeDatakeyAndFilter = (arr: Array<any>, columns: Array<any>) => {
     const fields = props.fields;
     return arr.map((item: { [key: string]: any }) => {
         var res: { [key: string]: any } = {};
@@ -114,7 +118,7 @@ const beforeUpload = async (file: File) => {
             if (goNext)
                 goNext(isVaild);
         }
-    } catch (e:any) {
+    } catch (e: any) {
         ElNotification.error({ title: '上传出错了', message: e.message });
     } finally {
         isLoading.value = false;

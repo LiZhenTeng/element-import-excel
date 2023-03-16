@@ -24,7 +24,8 @@
     "element",
     "import",
     "excel",
-    "import-excel"
+    "import-excel",
+    "importexcel"
   ],
   "homepage": "https://github.com/LiZhenTeng/element-import-excel",
   "dependencies": {

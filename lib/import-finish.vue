@@ -23,7 +23,13 @@
   </div>
 </template>
 <script lang="ts" setup>
+import { ElTable, ElTableColumn, ElIcon, ElButton } from 'element-plus'
 import { CircleCheck } from '@element-plus/icons-vue';
+import 'element-plus/es/components/table/style/css'
+import 'element-plus/es/components/table-column/style/css'
+import 'element-plus/es/components/icon/style/css'
+import 'element-plus/es/components/button/style/css'
+
 defineProps({
   //是否显示返回结果列表
   showFinishResult: {

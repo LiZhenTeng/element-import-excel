@@ -15,10 +15,14 @@
   </el-dialog>
 </template>
 <script lang="ts" setup>
+import { provide, ref, defineEmits } from 'vue';
+import { ElDialog, ElSteps, ElStep } from 'element-plus'
 import ImportUpload from "./import-upload.vue";
 import ImportData from "./import-data.vue";
 import ImportFinish from "./import-finish.vue";
-import { provide, ref, defineEmits } from 'vue';
+import 'element-plus/es/components/dialog/style/css'
+import 'element-plus/es/components/steps/style/css'
+import 'element-plus/es/components/step/style/css'
 
 const props = defineProps({
   scroll: {

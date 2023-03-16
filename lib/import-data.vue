@@ -36,9 +36,15 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { ElNotification, ElMessage } from 'element-plus'
 import { inject, ref, computed, onMounted } from 'vue';
+import { ElNotification, ElMessage, ElTable, ElTableColumn, ElSpace, ElButton } from 'element-plus'
 import Schema from 'async-validator';
+import 'element-plus/es/components/notification/style/css'
+import 'element-plus/es/components/message/style/css'
+import 'element-plus/es/components/table/style/css'
+import 'element-plus/es/components/table-column/style/css'
+import 'element-plus/es/components/space/style/css'
+import 'element-plus/es/components/button/style/css'
 
 const props = defineProps({
     rules: {
