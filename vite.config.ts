@@ -7,11 +7,11 @@ import path from "path";
 export default defineConfig({
   plugins: [vue()],
   build: {
-    outDir: 'element-import-excel/dist',
+    outDir: 'dist',
     lib: {
       entry: path.resolve(__dirname, "./lib/index.ts"),
-      name: "element-import-excel",
-      fileName: "element-import-excel",
+      name:'element-import-excel',
+      fileName:'element-import-excel'
     },
     rollupOptions: {
       external: ["vue"],

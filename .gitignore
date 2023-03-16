@@ -11,7 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
-element-import-excel
+es/
+/typings/
 
 # Editor directories and files
 .vscode/*
