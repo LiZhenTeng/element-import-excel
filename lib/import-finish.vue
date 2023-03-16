@@ -2,8 +2,8 @@
   <div v-if="showFinishResult" class="m">
     <el-table :data="dataSource">
       <template v-for="item in dataSourceColumns">
-        <el-table-column :prop="item.dataIndex">
-          {{ item.title }}
+        <el-table-column :prop="item.prop">
+          {{ item.label }}
         </el-table-column>
       </template>
     </el-table>

@@ -21,25 +21,21 @@
 import { excel } from './utils/excel';
 import { inject, ref } from 'vue'
 import { ElNotification, ElAlert, ElUpload, ElIcon } from 'element-plus';
+import type { UploadUserFile } from 'element-plus';
 import { UploadFilled } from '@element-plus/icons-vue'
 import 'element-plus/es/components/notification/style/css'
 import 'element-plus/es/components/alert/style/css'
 import 'element-plus/es/components/upload/style/css'
 import 'element-plus/es/components/icon/style/css'
+import { Fields,Column, ImportUploadProps } from './typings';
 
-const props = defineProps({
-    tips: Array<any>,
-    fields: {
-        type: Object,
-        required: true,
-    }
-})
+const props = defineProps<ImportUploadProps>()
 const emit = defineEmits(['upload'])
-const goNext: Function | undefined = inject('goNext')
+const goNext: Function | undefined = inject<Function>('goNext')
 
-const fileList = ref([]);
+const fileList = ref<Array<UploadUserFile>>([]);
 const isLoading = ref(false);
-const fields = ref<{ [key: string]: any }>({});
+const fields = ref<Fields>({});
 
 const fakeRequeset = () => {
     fileList.value = [];
@@ -50,7 +46,7 @@ const checkType = (file: File) => {
     if (!fileExt) throw new Error("未解析文件后缀")
     return extArr.includes(fileExt);
 }
-const checkTableTitle = (columns: Array<any>, fields: Object) => {
+const checkTableTitle = (columns: Array<any>, fields: Fields) => {
     const titles = Object.values(fields);
     let isVaild = true;
     titles.forEach((item) => {
