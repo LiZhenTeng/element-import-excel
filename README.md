@@ -33,7 +33,7 @@ import { ref } from 'vue';
 
 const importConfig = ref({
   visible: false,
-  fields: { name: '姓名' },
+  fields: { name: '姓名',sex:'性别' },
   requestFn: (data: Array<any>) => {
     console.log(data)
   }
