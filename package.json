@@ -20,7 +20,7 @@
     "es",
     "dist-css"
   ],
-  "license": "MIT",
+  "license": "ISC",
   "keywords": [
     "element",
     "import",
