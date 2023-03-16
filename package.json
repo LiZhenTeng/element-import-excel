@@ -17,7 +17,8 @@
     "lib",
     "src",
     "typings",
-    "es"
+    "es",
+    "dist-css"
   ],
   "license": "MIT",
   "keywords": [
