@@ -15,49 +15,54 @@
   </el-dialog>
 </template>
 <script lang="ts" setup>
-import { provide, ref, defineEmits } from 'vue';
+import { provide, ref, defineEmits, defineProps } from 'vue';
 import { ElDialog, ElSteps, ElStep } from 'element-plus'
-import type { Fields, Column, ImportExcelProps } from './typings'
+import type { Fields, Column, RequestFn, ReturnFileName, Formatter, Data } from './typings'
 import ImportUpload from "./import-upload.vue";
 import ImportData from "./import-data.vue";
 import ImportFinish from "./import-finish.vue";
 import 'element-plus/es/components/dialog/style/css'
 import 'element-plus/es/components/steps/style/css'
 import 'element-plus/es/components/step/style/css'
+import type { Rules } from 'async-validator';
+interface Props {
+  scroll?: number
+  filePath?: string
+  requestFn: RequestFn
+  returnFileName?: ReturnFileName
+  fields: Fields
+  visible?: boolean
+  title?: string
+  append?: Data
+  tips?: Array<string>
+  rules?: Rules
+  formatter?: Formatter
+  dialogWidth?: string
+  showFinishResult?: boolean
+  finishDataColumns?: Array<Column>
+  finishDataSource?: Array<Fields>
+}
+interface Emits {
+  (e: 'goPre'): void, (e: 'close'): void, (e: 'finish'): void
+}
 
-const {
-  scroll,
-  fields,
-  filePath,
-  requestFn,
-  returnFileName,
-  visible,
-  tips,
-  title,
-  append,
-  rules,
-  formatter,
-  dialogWidth,
-  showFinishResult,
-  finishDataColumns,
-  finishDataSource
-} = withDefaults(defineProps<ImportExcelProps>(), { scroll: 1500, visible: false, dialogWidth: '80%', showFinishResult: false })
+const props = withDefaults(defineProps<Props>(), { scroll: 1500, visible: false, dialogWidth: '80%', showFinishResult: false })
 
-const emit = defineEmits(['goPre', 'close', 'finish'])
+const emit = defineEmits<Emits>()
 const tableData = ref<Array<Fields>>([])
 const columns = ref<Array<Column>>([]);
 const currentStep = ref(1);
 const canNext = ref(true);
 const fieldsCopy = ref<Fields>({});
 
-fieldsCopy.value = fields;
+fieldsCopy.value = props.fields;
 
 const handleUpload = (c: Array<Column>, t: Array<Fields>, fileName: string, f: Fields) => {
   fieldsCopy.value = f;
   columns.value = c;
   tableData.value = t;
-  if (returnFileName) {
-    returnFileName(fileName);
+  if (props.returnFileName) {
+    props.returnFileName(fileName);
   }
 }
 const initData = () => {

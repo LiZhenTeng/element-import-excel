@@ -27,10 +27,18 @@ import 'element-plus/es/components/notification/style/css'
 import 'element-plus/es/components/alert/style/css'
 import 'element-plus/es/components/upload/style/css'
 import 'element-plus/es/components/icon/style/css'
-import { Fields,Column, ImportUploadProps } from './typings';
+import { Fields, Column, Data } from './typings';
+import { ArrayToObj, changeDatakeyAndFilter, checkTableTitle, checkType } from './utils';
+interface Props {
+    tips?: Array<string>,
+    fields: Fields
+}
+interface Emits {
+    (e: 'upload', columns: Array<any>, data: Array<any>, fileName: string, fields: Fields): void
+}
 
-const props = defineProps<ImportUploadProps>()
-const emit = defineEmits(['upload'])
+const props = defineProps<Props>()
+const emit = defineEmits<Emits>()
 const goNext: Function | undefined = inject<Function>('goNext')
 
 const fileList = ref<Array<UploadUserFile>>([]);
@@ -40,44 +48,6 @@ const fields = ref<Fields>({});
 const fakeRequeset = () => {
     fileList.value = [];
 }
-const checkType = (file: File) => {
-    const fileExt = file.name.split(".").pop()?.toLocaleLowerCase();
-    const extArr = ["xlsx", "xls", "csv"];
-    if (!fileExt) throw new Error("未解析文件后缀")
-    return extArr.includes(fileExt);
-}
-const checkTableTitle = (columns: Array<any>, fields: Fields) => {
-    const titles = Object.values(fields);
-    let isVaild = true;
-    titles.forEach((item) => {
-        if (!columns.includes(item)) {
-            isVaild = false;
-            ElNotification.error({ title: '数据出错了', message: item + '列未找到' })
-        }
-    });
-    return isVaild;
-}
-
-const changeDatakeyAndFilter = (arr: Array<any>, columns: Array<any>) => {
-    const fields = props.fields;
-    return arr.map((item: { [key: string]: any }) => {
-        var res: { [key: string]: any } = {};
-        for (const key in fields) {
-            res[key] = item[fields[key]];
-        }
-        return res;
-    });
-}
-const arrToObj = (arr: Array<any>) => {
-    var result: { [key: string]: any } = {};
-    arr.forEach((item: string) => {
-        let key = item;
-        let value = item;
-        result[key] = value;
-    });
-    return result;
-}
-
 
 const beforeUpload = async (file: File) => {
     if (isLoading.value) return;
@@ -85,12 +55,11 @@ const beforeUpload = async (file: File) => {
         ElNotification.error({ title: "上传出错了", message: `文件：${file.name} 文件类型错误，请在模板文件上修改后上传` });
         return false;
     }
-
     isLoading.value = true;
     try {
-        let excelData: { columns: Array<any>, tableData: Array<any> } | null = await excel(file);
+        let excelData = await excel(file);
         if (!excelData) {
-            ElNotification.error({ title: '上传出错了', message: '文件读取出错，可能是时间格式为“X月X日”导致的，请重新上传。' });
+            ElNotification.error({ title: '上传出错了', message: '文件读取出错，请重新上传。' });
             return false;
         }
         const { columns, tableData } = excelData;
@@ -101,13 +70,13 @@ const beforeUpload = async (file: File) => {
             fields.value =
                 Object.keys(props.fields).length > 0
                     ? props.fields
-                    : arrToObj(columns);
+                    : ArrayToObj(columns);
 
             let isVaild = checkTableTitle(columns, props.fields);
             emit(
                 "upload",
                 columns,
-                changeDatakeyAndFilter(tableData, columns),
+                changeDatakeyAndFilter(tableData, props.fields),
                 file.name,
                 fields.value
             );
