@@ -24,7 +24,7 @@ $ yarn add element-import-excel
 ```vue
 <template>
     <button @click="importConfig.visible = true">click</button>
-    <import-view :visible="importConfig.visible" :fields="importConfig.fields" :request-fn="importConfig.requestFn"
+    <import-view :visible="importConfig.visible" :fields="importConfig.fields" :read-success="importConfig.readSuccess"
       @close="importConfig.visible = false" />
 </template>
 
@@ -34,7 +34,7 @@ import { ref } from 'vue';
 const importConfig = ref({
   visible: false,
   fields: { name: '姓名',sex:'性别' },
-  requestFn: (data: Array<any>) => {
+  readSuccess: (data: Array<any>) => {
     console.log(data)
   }
 })
