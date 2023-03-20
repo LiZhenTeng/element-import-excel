@@ -17,47 +17,29 @@
 <script lang="ts" setup>
 import { provide, ref, defineEmits, defineProps } from 'vue';
 import { ElDialog, ElSteps, ElStep } from 'element-plus'
-import type { Fields, Column, ReadSuccess, ReturnFileName, Formatter, Data } from './typings'
-import ImportUpload from "./import-upload.vue";
-import ImportData from "./import-data.vue";
-import ImportFinish from "./import-finish.vue";
+import { Columns, Data, Fields, importViewEmits, importViewProps } from './import-view'
+import ImportUpload from "../../upload/src/import-upload.vue";
+import ImportData from "../../data";
+import ImportFinish from "../../finish";
 import 'element-plus/es/components/dialog/style/css'
 import 'element-plus/es/components/steps/style/css'
 import 'element-plus/es/components/step/style/css'
-import type { Rules } from 'async-validator';
-interface Props {
-  scroll?: number
-  filePath?: string
-  readSuccess: ReadSuccess
-  returnFileName?: ReturnFileName
-  fields: Fields
-  visible?: boolean
-  title?: string
-  append?: Data
-  tips?: Array<string>
-  rules?: Rules
-  formatter?: Formatter
-  dialogWidth?: string
-  showFinishResult?: boolean
-  finishDataColumns?: Array<Column>
-  finishDataSource?: Array<Fields>
-}
-interface Emits {
-  (e: 'close'): void, (e: 'finish'): void
-}
 
-const props = withDefaults(defineProps<Props>(), { scroll: 1500, visible: false, dialogWidth: '80%', showFinishResult: false })
+const props = defineProps(importViewProps)
+const emit = defineEmits(importViewEmits)
+defineOptions({
+  name: 'ImportView',
+})
 
-const emit = defineEmits<Emits>()
-const tableData = ref<Array<Fields>>([])
-const columns = ref<Array<Column>>([]);
+const tableData = ref<Data>([])
+const columns = ref<Columns>([]);
 const currentStep = ref(1);
 const canNext = ref(true);
 const fieldsCopy = ref<Fields>({});
 
 fieldsCopy.value = props.fields;
 
-const handleUpload = (c: Array<Column>, t: Array<Fields>, fileName: string, f: Fields) => {
+const handleUpload = (c: Columns, t: Data, fileName: string, f: Fields) => {
   fieldsCopy.value = f;
   columns.value = c;
   tableData.value = t;

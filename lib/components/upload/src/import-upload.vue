@@ -18,7 +18,7 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { excel } from './utils/excel';
+import { excel } from '../../../utils/excel';
 import { inject, ref } from 'vue'
 import { ElNotification, ElAlert, ElUpload, ElIcon } from 'element-plus';
 import type { UploadUserFile } from 'element-plus';
@@ -27,8 +27,8 @@ import 'element-plus/es/components/notification/style/css'
 import 'element-plus/es/components/alert/style/css'
 import 'element-plus/es/components/upload/style/css'
 import 'element-plus/es/components/icon/style/css'
-import { Fields, Column, Data } from './typings';
-import { ArrayToObj, changeDatakeyAndFilter, checkTableTitle, checkType } from './utils';
+import { ArrayToObj, changeDatakeyAndFilter, checkTableTitle, checkType } from '../../../utils';
+import { Fields } from '../../home/src/import-view';
 interface Props {
     tips?: Array<string>,
     fields: Fields

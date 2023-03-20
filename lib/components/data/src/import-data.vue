@@ -13,7 +13,7 @@
         <el-table v-loading="isLoading" :data="tableData" :border="true" style="width: 100%">
             <el-table-column :align="'center'" type="index" label="行号" column-key="key" prop="key" width="50" />
             <template v-for="(label, field) of fields">
-                <el-table-column :label="label" :prop="(field as string)" :align="'left'" header-align="center">
+                <el-table-column :label="label" :prop="field.toString()" :align="'left'" header-align="center">
                     <!-- 自定义错误显示 -->
                     <template #default="scope">
                         <el-tooltip :content="errorData[scope.$index][field]" class="item" effect="dark" placement="top"
@@ -39,7 +39,7 @@
 import { inject, ref, computed, onMounted, Prop } from 'vue';
 import { ElNotification, ElMessage, ElTable, ElTableColumn, ElSpace, ElButton, ElTooltip, vLoading } from 'element-plus'
 import Schema from 'async-validator';
-import type { Rules } from 'async-validator'
+import { importDataProps, importDataEmits, ErrorData } from './import-data';
 import 'element-plus/es/components/notification/style/css'
 import 'element-plus/es/components/message/style/css'
 import 'element-plus/es/components/table/style/css'
@@ -48,32 +48,19 @@ import 'element-plus/es/components/space/style/css'
 import 'element-plus/es/components/button/style/css'
 import 'element-plus/es/components/tooltip/style/css'
 import 'element-plus/es/components/loading/style/css'
-import { Data, Fields, Formatter, ReadSuccess } from './typings';
+import { Data } from '../../home/src/import-view';
 
-interface Props {
-    rules?: Rules
-    fields: Fields
-    readSuccess: ReadSuccess
-    tableData: Array<Data>
-    formatter?: Formatter
-    append?: Data
-    scroll?: number
-    canNext?: boolean
-}
-interface Emits {
-    (e: 'pre'): void
-}
-const props = withDefaults(defineProps<Props>(), { scroll: 1500, canNext: true });
-const emit = defineEmits<Emits>();
+const props = defineProps(importDataProps);
+const emit = defineEmits(importDataEmits);
 
 const goNext: Function | undefined = inject('goNext')
 
 const isLoading = ref(false)
-const errorData = ref<Data>({});
+const errorData = ref<ErrorData>({});
 
 const errorTableData = computed(() => {
     const e = errorData.value
-    const errorTableData = new Array<Data>();
+    const errorTableData = new Array<ErrorData>();
     for (const index in e) {
         var messageArr = new Array();
         for (const field in e[index]) {
@@ -124,7 +111,7 @@ const handlePre = () => {
 }
 
 
-const changeData = (tableData: Array<Data>) => {
+const changeData = (tableData: Data) => {
     let dataSource = tableData;
     return dataSource
 }
@@ -144,8 +131,10 @@ const handleRequest = async () => {
         })
     }
     try {
-        await props.readSuccess(tableData)
-        ElMessage.success('导入完成，导入明细请查看详情！')
+        if (props.readSuccess) {
+            await props.readSuccess(tableData)
+            ElMessage.success('导入完成，导入明细请查看详情！')
+        }
         if (goNext)
             goNext()
     } catch (error) {
