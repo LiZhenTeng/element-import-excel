@@ -7,8 +7,8 @@
       <el-step title="完成" />
     </el-steps>
     <import-upload :fields="fieldsCopy" :tips="tips" @upload="handleUpload" v-if="currentStep === 1" />
-    <import-data :append="append" :fields="fieldsCopy" :formatter="formatter" :request-fn="requestFn" :rules="rules"
-      :table-data="tableData" :scroll="scroll" :can-next="canNext" @pre="handleStep3Pre" v-if="currentStep === 2" />
+    <import-data :append="append" :fields="fieldsCopy" :formatter="formatter" :rules="rules" :table-data="tableData"
+      :scroll="scroll" :can-next="canNext" @pre="handleStep3Pre" v-if="currentStep === 2" :read-success="readSuccess" />
     <br>
     <import-finish @finish="handleFinish" v-if="currentStep === 3" :show-finish-result="showFinishResult"
       :data-source-columns="finishDataColumns" :data-source="finishDataSource" />
@@ -17,7 +17,7 @@
 <script lang="ts" setup>
 import { provide, ref, defineEmits, defineProps } from 'vue';
 import { ElDialog, ElSteps, ElStep } from 'element-plus'
-import type { Fields, Column, RequestFn, ReturnFileName, Formatter, Data } from './typings'
+import type { Fields, Column, ReadSuccess, ReturnFileName, Formatter, Data } from './typings'
 import ImportUpload from "./import-upload.vue";
 import ImportData from "./import-data.vue";
 import ImportFinish from "./import-finish.vue";
@@ -28,7 +28,7 @@ import type { Rules } from 'async-validator';
 interface Props {
   scroll?: number
   filePath?: string
-  requestFn: RequestFn
+  readSuccess: ReadSuccess
   returnFileName?: ReturnFileName
   fields: Fields
   visible?: boolean
@@ -43,7 +43,7 @@ interface Props {
   finishDataSource?: Array<Fields>
 }
 interface Emits {
-  (e: 'goPre'): void, (e: 'close'): void, (e: 'finish'): void
+  (e: 'close'): void, (e: 'finish'): void
 }
 
 const props = withDefaults(defineProps<Props>(), { scroll: 1500, visible: false, dialogWidth: '80%', showFinishResult: false })

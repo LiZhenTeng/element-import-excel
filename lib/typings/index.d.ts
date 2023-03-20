@@ -1,4 +1,4 @@
-export interface RequestFn {
+export interface ReadSuccess {
     (data: Array<any>): Promise<any>
 }
 

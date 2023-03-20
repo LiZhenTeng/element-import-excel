@@ -48,12 +48,12 @@ import 'element-plus/es/components/space/style/css'
 import 'element-plus/es/components/button/style/css'
 import 'element-plus/es/components/tooltip/style/css'
 import 'element-plus/es/components/loading/style/css'
-import { Data, Fields, Formatter, RequestFn } from './typings';
+import { Data, Fields, Formatter, ReadSuccess } from './typings';
 
 interface Props {
     rules?: Rules
     fields: Fields
-    requestFn: RequestFn
+    readSuccess: ReadSuccess
     tableData: Array<Data>
     formatter?: Formatter
     append?: Data
@@ -144,7 +144,7 @@ const handleRequest = async () => {
         })
     }
     try {
-        await props.requestFn(tableData)
+        await props.readSuccess(tableData)
         ElMessage.success('导入完成，导入明细请查看详情！')
         if (goNext)
             goNext()
