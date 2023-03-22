@@ -41,7 +41,6 @@ export const importViewProps = buildProps({
     },
     visible: {
         type: Boolean,
-        default: false,
         required: true
     },
     title: {
