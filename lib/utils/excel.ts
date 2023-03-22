@@ -1,7 +1,8 @@
 import { allTrim } from './allTrim'
 import { utils, read } from 'xlsx';
 import type { WorkSheet } from 'xlsx';
-import { Data, ExcelData } from '../typings';
+import { Data } from '../components/home/src/import-view';
+export type ExcelData = string | ArrayBuffer | null | undefined
 
 const getHeaderRow = (sheet: WorkSheet) => {
     const headers: Array<string> = []
@@ -30,14 +31,14 @@ const getExcelData = (excelData: ExcelData) => {
         defval: null,
         raw: false,
         dateNF: 'yyyy-MM-dd',
-    });
+    }).map((x, i) => ({ ...x, key: i + 1 }));
     return {
         columns: allTrim(columns, true) as Array<string>,
-        tableData: allTrim(tableData, true) as Array<Data>
+        tableData: allTrim(tableData, true) as Data
     }
 }
 
-export const excel = (file: File): Promise<{ columns: Array<string>, tableData: Array<Data> } | null> => {
+export const excel = (file: File): Promise<{ columns: Array<string>, tableData: Data } | null> => {
     return new Promise((resolve, reject) => {
         const reader = new FileReader()
         reader.readAsArrayBuffer(file)

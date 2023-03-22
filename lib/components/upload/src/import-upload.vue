@@ -23,22 +23,17 @@ import { inject, ref } from 'vue'
 import { ElNotification, ElAlert, ElUpload, ElIcon } from 'element-plus';
 import type { UploadUserFile } from 'element-plus';
 import { UploadFilled } from '@element-plus/icons-vue'
+import { importUploadProps, importUploadEmits } from './import-upload'
+import { ArrayToObject, changeDatakeyAndFilter, checkTableTitle, checkType } from '../../../utils';
+import { Fields } from '../../home/src/import-view';
 import 'element-plus/es/components/notification/style/css'
 import 'element-plus/es/components/alert/style/css'
 import 'element-plus/es/components/upload/style/css'
 import 'element-plus/es/components/icon/style/css'
-import { ArrayToObj, changeDatakeyAndFilter, checkTableTitle, checkType } from '../../../utils';
-import { Fields } from '../../home/src/import-view';
-interface Props {
-    tips?: Array<string>,
-    fields: Fields
-}
-interface Emits {
-    (e: 'upload', columns: Array<any>, data: Array<any>, fileName: string, fields: Fields): void
-}
 
-const props = defineProps<Props>()
-const emit = defineEmits<Emits>()
+
+const props = defineProps(importUploadProps)
+const emit = defineEmits(importUploadEmits)
 const goNext: Function | undefined = inject<Function>('goNext')
 
 const fileList = ref<Array<UploadUserFile>>([]);
@@ -70,7 +65,7 @@ const beforeUpload = async (file: File) => {
             fields.value =
                 Object.keys(props.fields).length > 0
                     ? props.fields
-                    : ArrayToObj(columns);
+                    : ArrayToObject(columns);
 
             let isVaild = checkTableTitle(columns, props.fields);
             emit(

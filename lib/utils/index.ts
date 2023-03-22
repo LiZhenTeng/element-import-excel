@@ -1,5 +1,5 @@
 import { ElNotification } from "element-plus";
-import { Data, Fields } from "../typings";
+import { Data, Fields } from "../components/home/src/import-view";
 
 export const checkType = (file: File) => {
     const fileExt = file.name.split(".").pop()?.toLocaleLowerCase();
@@ -19,21 +19,20 @@ export const checkTableTitle = (columns: Array<string>, fields: Fields) => {
     return isVaild;
 }
 
-export const changeDatakeyAndFilter = (data: Array<Data>, fields: Fields) => {
-    return data.map(item => {
-        var d: Data = {};
-        Object.keys(fields).forEach(key => {
-            d[key] = item[fields[key]];
+export const changeDatakeyAndFilter = (data: Data, fields: Fields): Data =>
+    data.reduce<Data>((p, c, i) => {
+        p.push({
+            ...Object.keys(fields).reduce((pre, cur) => {
+                Object.defineProperty(pre, cur, { value: c[fields[cur]], configurable: true, enumerable: true })
+                return pre
+            }, {}), key: i + 1
         })
-        return d;
-    });
-}
-export const ArrayToObj = (arr: Array<string>) => {
-    var result: Data = {};
-    arr.forEach((item: string) => {
-        let key = item;
-        let value = item;
-        result[key] = value;
-    });
-    return result;
-}
+        return p
+    }, []);
+
+
+export const ArrayToObject = (data: Array<string>) =>
+    data.reduce<Record<string, string>>((p, c) => {
+        Object.defineProperty(p, c, { value: c, configurable: true, enumerable: true })
+        return p;
+    }, {})

@@ -25,26 +25,14 @@
 <script lang="ts" setup>
 import { ElTable, ElTableColumn, ElIcon, ElButton } from 'element-plus'
 import { CircleCheck } from '@element-plus/icons-vue';
+import { importFinishProps, importFinishEmits } from './import-finish'
 import 'element-plus/es/components/table/style/css'
 import 'element-plus/es/components/table-column/style/css'
 import 'element-plus/es/components/icon/style/css'
 import 'element-plus/es/components/button/style/css'
 
-defineProps({
-  //是否显示返回结果列表
-  showFinishResult: {
-    type: Boolean,
-    default: false,
-  },
-  dataSourceColumns: {
-    type: Array<{ [key: string]: any }>,
-  },
-  //返回展示结果集
-  dataSource: {
-    type: Array<{ [key: string]: any }>,
-  }
-});
-const emit = defineEmits(['finish']);
+defineProps(importFinishProps);
+const emit = defineEmits(importFinishEmits);
 const handleFinish = () => {
   emit("finish");
 }

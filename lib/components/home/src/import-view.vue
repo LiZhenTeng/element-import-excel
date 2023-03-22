@@ -17,7 +17,7 @@
 <script lang="ts" setup>
 import { provide, ref, defineEmits, defineProps } from 'vue';
 import { ElDialog, ElSteps, ElStep } from 'element-plus'
-import { Columns, Data, Fields, importViewEmits, importViewProps } from './import-view'
+import {  Data, Fields, importViewEmits, importViewProps } from './import-view'
 import ImportUpload from "../../upload/src/import-upload.vue";
 import ImportData from "../../data";
 import ImportFinish from "../../finish";
@@ -27,19 +27,16 @@ import 'element-plus/es/components/step/style/css'
 
 const props = defineProps(importViewProps)
 const emit = defineEmits(importViewEmits)
-defineOptions({
-  name: 'ImportView',
-})
 
 const tableData = ref<Data>([])
-const columns = ref<Columns>([]);
+const columns = ref<string[]>([]);
 const currentStep = ref(1);
 const canNext = ref(true);
 const fieldsCopy = ref<Fields>({});
 
 fieldsCopy.value = props.fields;
 
-const handleUpload = (c: Columns, t: Data, fileName: string, f: Fields) => {
+const handleUpload = (c: string[], t: Data, fileName: string, f: Fields) => {
   fieldsCopy.value = f;
   columns.value = c;
   tableData.value = t;

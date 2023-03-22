@@ -10,8 +10,9 @@ export default defineConfig({
     outDir: 'dist',
     lib: {
       entry: path.resolve(__dirname, "./lib/index.ts"),
-      name:'element-import-excel',
-      fileName:'element-import-excel'
+      name:'index',
+      formats:['es','cjs','umd'],
+      fileName:'index'
     },
     rollupOptions: {
       external: ["vue"],

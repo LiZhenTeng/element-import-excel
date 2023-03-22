@@ -1,5 +1,5 @@
 import { Rules } from "async-validator";
-import { buildProps, definePropType } from "element-plus/es/utils";
+import { buildProps, definePropType } from "element-plus/lib/utils/vue/props/runtime";
 import { ExtractPropTypes } from "vue";
 import type ImportView from './import-view.vue'
 
@@ -72,14 +72,15 @@ export const importViewProps = buildProps({
         type: definePropType<Columns>(Array)
     },
     finishDataSource: {
-        type: definePropType<Fields>(Object)
+        type: definePropType<Data>(Array),
+        default: []
     }
 } as const)
 
 export type ImportViewProps = ExtractPropTypes<typeof importViewProps>
 
 export const importViewEmits = {
-    close: () => { },
-    finish: () => { }
+    close: (): void => { },
+    finish: (): void => { }
 }
 export type ImportViewInstance = InstanceType<typeof ImportView>

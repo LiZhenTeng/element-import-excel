@@ -1,1 +1,2 @@
-export * from './components/home'
+export { ImportView } from './components/home'
+
