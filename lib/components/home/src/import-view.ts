@@ -1,5 +1,5 @@
 import { Rules } from "async-validator";
-import { buildProps, definePropType } from "element-plus/lib/utils/vue/props/runtime";
+import { buildProps, definePropType } from '@/utils/vue/props/runtime';
 import { ExtractPropTypes } from "vue";
 import type ImportView from './import-view.vue'
 

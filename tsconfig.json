@@ -15,7 +15,11 @@
     "removeComments": false,
     "rootDir": ".",
     "declaration": true,
-    "declarationDir": "types",
+    "paths": {
+      "@/*": [
+        "lib/*"
+      ]
+    }  
   },
   "include": [
     "lib"
