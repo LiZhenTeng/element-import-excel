@@ -5,7 +5,6 @@
   "author": "zhentengli <xingxingmofashu@outlook.com>",
   "scripts": {
     "build": "vue-tsc --noEmit && vite build",
-    "typecheck":"vue-tsc -p tsconfig.package.json --composite false --noEmit",
     "typings":"pnpm run -C internal/build start"
   },
   "main": "./dist/index.js",
@@ -26,8 +25,10 @@
   ],
   "homepage": "https://github.com/LiZhenTeng/element-import-excel",
   "devDependencies": {
+    "@esbuild-kit/cjs-loader": "^2.2.1",
+    "@types/gulp": "^4.0.9",
     "@babel/types": "^7.21.3",
-    "@types/node": "^18.15.3",
+    "@types/node": "*",
     "@vitejs/plugin-vue": "^4.0.0",
     "typescript": "^4.9.5",
     "vite": "^4.1.0",
@@ -36,6 +37,11 @@
     "async-validator": "^4.2.5",
     "element-plus": "^2.3.0",
     "vue": "^3.2.45",
-    "xlsx": "^0.18.5"
+    "xlsx": "^0.18.5",
+    "chalk": "^5.2.0",
+    "consola": "^2.15.3",
+    "fast-glob": "^3.2.12",
+    "gulp": "^4.0.2",
+    "ts-morph": "^17.0.1"
   }
 }
