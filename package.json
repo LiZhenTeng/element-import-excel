@@ -1,6 +1,6 @@
 {
   "name": "element-import-excel",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "This is an import excel component based on element-plus",
   "author": "zhentengli <xingxingmofashu@outlook.com>",
   "scripts": {
