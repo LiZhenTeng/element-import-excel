@@ -9,6 +9,21 @@
 $ yarn add element-import-excel
 # npm install element-import-excel --save
 ```
+## Full import
+
+```typescript
+// main.ts
+import { createApp } from 'vue'
+import ImportView from 'element-import-excel'
+import 'element-import-excel/dist/index.css'
+import App from './App.vue'
+
+const app = createApp(App)
+
+app.use(ImportView)
+app.mount('#app')
+
+```
 
 ## 🚀 Usage
 
@@ -23,6 +38,8 @@ $ yarn add element-import-excel
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { ImportView } from 'element-import-excel'
+import 'element-import-excel/dist/index.css'
 
 const importConfig = ref({
   visible: false,

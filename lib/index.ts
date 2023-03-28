@@ -4,6 +4,6 @@ import { ImportView } from './components/home'
 export { ImportView } from './components/home'
 
 const install=(app:App)=>{
-    app.component(ImportView.name,ImportView)
+    app.component('ImportView',ImportView)
 }
 export default install
