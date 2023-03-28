@@ -1,8 +1,5 @@
 > 🎚 An import excel component based on element-plus
 
-## ✨ Features
-
-
 ## 🎯 install
 
 ```bash
@@ -31,23 +28,22 @@ app.mount('#app')
 
 ```vue
 <template>
-    <button @click="importConfig.visible = true">click</button>
-    <import-view :visible="importConfig.visible" :fields="importConfig.fields" :read-success="importConfig.readSuccess"
-      @close="importConfig.visible = false" />
+    <button @click="visible = true">click</button>
+    <import-view :visible="visible" :fields="fields" :read-success="readSuccess"
+      @close="visible = false" />
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { ImportView } from 'element-import-excel'
 import 'element-import-excel/dist/index.css'
+import type { Fields } from 'element-import-excel/types/components/home';
 
-const importConfig = ref({
-  visible: false,
-  fields: { name: '姓名',sex:'性别' },
-  readSuccess: (data: Array<any>) => {
-    console.log(data)
-  }
-})
+const visible = ref(false);
+const fields = ref<Fields>({ name: '姓名' });
+const readSuccess = (data: Array<any>) => {
+  return Promise.resolve(data)
+}
 </script>
 ```
 
@@ -60,7 +56,7 @@ const importConfig = ref({
 - **类型**: `Fields`
 
   ```ts
-  type Fields = {[key:string]:string}
+  type Fields = Record<string,string>
   ```
 
 - **默认值**：`undefined`
@@ -82,6 +78,24 @@ const importConfig = ref({
 - **用法**：
 
   控制组件是否展示
+
+### rules
+
+- **类型**: `Rules`
+
+  ```ts
+  import type { Rules } from 'async-validator';
+  ```
+
+- **默认值**：`undefined`
+
+- **用法**：
+
+  ```html
+  <import-view :rules="{email:{type:'email',message:'请填写正确的Email'}}" />
+  ```
+
+  用作数据字段校验，更多用法请参考：https://github.com/tmpfs/async-validate
 
 ### readSuccess
 

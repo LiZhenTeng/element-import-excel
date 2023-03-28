@@ -3,14 +3,14 @@
         <!-- 错误显示表 -->
         <template v-if="errorTableData.length">
             <h1 style="color: #f56c6c;margin-top: 20px;">错误信息展示</h1>
-            <el-table :data="errorTableData" :border="true" style="width: 100%;margin-bottom: 20px;" row-key="row">
+            <el-table :data="errorTableData" :border="true" class-name="import-error-table" row-key="row">
                 <el-table-column label="错误行号" column-key="row" prop="row" :width="180"></el-table-column>
                 <el-table-column label="错误原因" column-key="reason" prop="reason"></el-table-column>
             </el-table>
         </template>
         <!-- 数据列表 -->
         <h1 style="margin-top: 20px;">数据列表</h1>
-        <el-table v-loading="isLoading" :data="tableData" :border="true" style="width: 100%">
+        <el-table v-loading="isLoading" :cell-class-name="checkCell" :data="tableData" :border="true" style="width: 100%">
             <el-table-column :align="'center'" type="index" label="行号" column-key="key" prop="key" width="50" />
             <template v-for="(label, field) of fields">
                 <el-table-column :label="label" :prop="field.toString()" :align="'left'" header-align="center">
@@ -41,7 +41,6 @@ import { ElNotification, ElMessage, ElTable, ElTableColumn, ElSpace, ElButton, E
 import Schema from 'async-validator';
 import { importDataProps, importDataEmits, ErrorData } from './import-data';
 import { Data } from '../../home/src/import-view';
-
 import 'element-plus/es/components/notification/style/css'
 import 'element-plus/es/components/message/style/css'
 import 'element-plus/es/components/table/style/css'
@@ -78,6 +77,13 @@ const errorTableData = computed(() => {
     }
     return errorTableData
 })
+
+const checkCell = ({ column, rowIndex }: { column: any, rowIndex: number }) => {
+    if (errorData.value[rowIndex] && errorData.value[rowIndex][column.property]) {
+        return 'import-error-cell'
+    }
+}
+
 
 const validateData = () => {
     if (props.rules) {
@@ -148,3 +154,19 @@ onMounted(() => {
 
 </script>
 
+<style>
+.import-error-table {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.import-error-cell {
+    color: white;
+    background: #f56c6c !important;
+}
+
+.import-error-cell:hover {
+    background-color: #f56c6c !important;
+    background: #f56c6c !important;
+}
+</style>
