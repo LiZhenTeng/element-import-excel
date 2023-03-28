@@ -11,13 +11,13 @@ export default defineConfig({
     }
   },
   build: {
-    sourcemap: true,
     outDir: 'dist',
+    sourcemap:true,
     lib: {
       entry: resolve(__dirname, "./lib/index.ts"),
       name: 'index',
       fileName: 'index',
-      formats: ['es', 'cjs']
+      formats:['es','cjs']
     },
     rollupOptions: {
       external: ["vue"],

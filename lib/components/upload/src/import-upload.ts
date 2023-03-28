@@ -1,4 +1,4 @@
-import { buildProps, definePropType } from '@/utils/vue/props/runtime';
+import { buildProps, definePropType } from '../../../utils/vue/props/runtime';
 import { ExtractPropTypes } from "vue";
 import {  Data, Fields, Tips } from "../../home/src/import-view";
 import type ImportUpload from './import-upload.vue'

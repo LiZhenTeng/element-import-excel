@@ -1,12 +1,5 @@
 > 🎚 An import excel component based on element-plus
 
-#### install
-
-```bash
-$ yarn add element-import-excel
-# npm install element-import-excel --save
-```
-
 ## ✨ Features
 
 
