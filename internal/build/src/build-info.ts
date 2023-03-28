@@ -1,15 +1,36 @@
 import path, { resolve } from 'path'
+import type { ModuleFormat } from 'rollup'
+import type { ProjectManifest } from '@pnpm/types'
+
 export const PKG_NAME = 'element-import-excel'
-
 export const projRoot = resolve(__dirname, '..', '..', '..')
-
 export const buildOutput = resolve(projRoot, 'dist')
 export const epOutput = resolve(buildOutput, 'element-import-excel')
-export const pkgRoot = resolve(projRoot, 'packages')
+export const pkgRoot = resolve(projRoot, 'lib')
 export const epRoot = resolve(pkgRoot, 'element-import-excel')
+export const epPackage = resolve(projRoot, 'package.json')
 
-import type { ModuleFormat } from 'rollup'
-
+export const getPackageManifest = (pkgPath: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    return require(pkgPath) as ProjectManifest
+  }
+export const getPackageDependencies = (
+    pkgPath: string
+  ): Record<'dependencies' | 'peerDependencies', string[]> => {
+    const manifest = getPackageManifest(pkgPath)
+    const { dependencies = {}, peerDependencies = {} } = manifest
+  
+    return {
+      dependencies: Object.keys(dependencies),
+      peerDependencies: Object.keys(peerDependencies),
+    }
+  }
+export const excludeFiles = (files: string[]) => {
+    const excludes = ['node_modules', 'test', 'mock', 'gulpfile', 'dist']
+    return files.filter(
+        (path) => !excludes.some((exclude) => path.includes(exclude))
+    )
+}
 export const modules = ['esm', 'cjs'] as const
 export type Module = typeof modules[number]
 export interface BuildInfo {

@@ -1,3 +1,4 @@
 import ImportFinish from './src/import-finish.vue'
+import { withInstall } from '@/utils/vue/install'
 
-export default ImportFinish
+export default withInstall(ImportFinish)

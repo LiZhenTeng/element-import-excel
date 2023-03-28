@@ -8,14 +8,8 @@ import chalk from 'chalk'
 import { Project } from 'ts-morph'
 import { pathRewriter } from '../utils'
 import type { CompilerOptions, SourceFile } from 'ts-morph'
+import { excludeFiles, projRoot } from '../build-info'
 
-const excludeFiles = (files: string[]) => {
-  const excludes = ['node_modules', 'test', 'mock', 'gulpfile', 'dist']
-  return files.filter(
-    (path) => !excludes.some((exclude) => path.includes(exclude))
-  )
-}
-const projRoot=path.resolve(__dirname,'..','..','..','..')
 const TSCONFIG_PATH = path.resolve(projRoot, 'tsconfig.package.json')
 const outDir = path.resolve(projRoot, 'types')
 

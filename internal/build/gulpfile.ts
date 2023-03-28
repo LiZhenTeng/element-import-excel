@@ -1,3 +1,4 @@
+import { series } from 'gulp'
 import { generateTypesDefinitions } from './src'
 
-export default generateTypesDefinitions
+export default series(generateTypesDefinitions)
