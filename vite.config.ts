@@ -18,7 +18,8 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, "./lib/index.ts"),
       name: 'index',
-      fileName: 'index'
+      fileName: 'index',
+      formats: ['es', 'cjs']
     },
     rollupOptions: {
       external: ["vue"],
@@ -35,8 +36,7 @@ export default defineConfig({
           loaders: {
             '.vue': 'ts',
           }
-        })
-      ]
+        })]
     },
     cssCodeSplit: true
   }
