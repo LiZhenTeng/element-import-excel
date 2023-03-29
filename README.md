@@ -1,11 +1,16 @@
+# Get Start
+
 > An import excel component based on element-plus
 
-## install
+##  Install
 
-```bash
-$ yarn add element-import-excel
-# npm install element-import-excel --save
+::: code-group
+
+```sh [npm]
+$ npm install element-excel-import
 ```
+:::
+
 ## Full import
 
 ```typescript
@@ -22,32 +27,18 @@ app.mount('#app')
 
 ```
 
-## Usage
-
-<details><summary>Vue 3</summary>
+## Page import
 
 ```vue
 <template>
-    <button @click="visible = true">click</button>
-    <import-view :visible="visible" :fields="fields" :read-success="readSuccess"
-      @close="visible = false" />
+    <import-view />
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
 import { ImportView } from 'element-import-excel'
 import 'element-import-excel/dist/index.css'
-import type { Fields } from 'element-import-excel/types/components/home';
-
-const visible = ref(false);
-const fields = ref<Fields>({ name: '姓名' });
-const readSuccess = (data: Array<any>) => {
-  return Promise.resolve(data)
-}
 </script>
 ```
-
-</details>
 
 ## Attributes
 
