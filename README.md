@@ -1,6 +1,6 @@
-> 🎚 An import excel component based on element-plus
+> An import excel component based on element-plus
 
-## 🎯 install
+## install
 
 ```bash
 $ yarn add element-import-excel
@@ -22,7 +22,7 @@ app.mount('#app')
 
 ```
 
-## 🚀 Usage
+## Usage
 
 <details><summary>Vue 3</summary>
 
