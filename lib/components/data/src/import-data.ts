@@ -1,6 +1,6 @@
 import { buildProps, definePropType } from '../../../utils/vue/props/runtime';
 import type { Rules } from 'async-validator'
-import { AppendData, Data, Fields, ReadSuccessFn } from "../../home/src/import-view";
+import { Append, Data, Fields, ReadSuccessFn } from "../../home/src/import-view";
 import { ExtractPropTypes } from "vue";
 import type ImportData from './import-data.vue'
 
@@ -29,7 +29,7 @@ export const importDataProps = buildProps({
         type: Function
     },
     append: {
-        type: definePropType<AppendData>(Object)
+        type: definePropType<Append>(Object)
     },
     /**
     * @description table scroll

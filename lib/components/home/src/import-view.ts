@@ -9,7 +9,7 @@ type Column = Record<string, string>;
 export type Tips = Array<Tip>;
 export type Columns = Array<Column>;
 export type Data = Array<Record<string, any>>;
-export type AppendData = Record<string, any>;
+export type Append = Record<string, any>;
 export type Fields = Record<string, string>
 export type ReadSuccessFn = (data: Data) => Promise<any>
 export type ReturnFileNameFn = (fileName: string) => void
@@ -48,7 +48,7 @@ export const importViewProps = buildProps({
         default: ''
     },
     append: {
-        type: definePropType<AppendData>(Object)
+        type: definePropType<Append>(Object)
     },
     tips: {
         type: definePropType<Tips>(Array)
