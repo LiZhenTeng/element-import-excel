@@ -2,7 +2,8 @@ import { defineConfig } from 'vitepress'
 import type { UserConfig, DefaultTheme } from 'vitepress'
 
 export const config: UserConfig<DefaultTheme.Config> = {
-    base: '/',
+    base: '/element-import-excel/',
+    title: 'Element Import Excel',
     lastUpdated: true,
     cleanUrls: true,
     themeConfig: {
@@ -12,6 +13,9 @@ export const config: UserConfig<DefaultTheme.Config> = {
         }, {
             text: 'Attributes',
             link: '/guide/attributes'
+        }, {
+            text: 'Events',
+            link: '/guide/events'
         }],
         socialLinks: [
             { icon: 'github', link: 'https://github.com/LiZhenTeng/element-import-excel' }
