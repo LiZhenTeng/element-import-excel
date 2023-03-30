@@ -4,8 +4,8 @@
   "description": "This is an import excel component based on element-plus",
   "author": "zhentengli <xingxingmofashu@outlook.com>",
   "scripts": {
-    "build": "vite build && pnpm run -C internal/build start",
-    "docs:build": "pnpm run -C docs build"
+    "build": "vite build && npm run -C internal/build start",
+    "docs:build": "npm run -C docs build"
   },
   "main": "./dist/index.js",
   "files": [
