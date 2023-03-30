@@ -1,8 +1,8 @@
 <template>
     <div>
         <div v-if="tips && tips.length" style="margin-top: 20px">
-            <el-alert type="warning" :key="index" v-for="(item, index) of tips" :title="index + 1 + '、' + item" show-icon
-                :closable="false">
+            <el-alert :type="item?.type || 'warning'" :key="index" v-for="(item, index) of tips"
+                :title="item?.title || `${index + 1}、${item.description}`" show-icon :closable="item?.closable || false">
             </el-alert>
         </div>
         <div style="margin-top: 20px;text-align: center;">

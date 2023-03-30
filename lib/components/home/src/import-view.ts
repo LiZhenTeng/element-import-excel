@@ -3,8 +3,9 @@ import { buildProps, definePropType } from '../../../utils/vue/props/runtime';
 import { ExtractPropTypes } from "vue";
 import type ImportView from './import-view.vue'
 
-type Tip = string;
-type Column = Record<string, string>;
+export type Type = 'success' | 'warning' | 'error' | 'info';
+export type Tip = { title?: string, description: string, type?: Type,closable?:boolean };
+export type Column = Record<string, string>;
 
 export type Tips = Array<Tip>;
 export type Columns = Array<Column>;
@@ -30,7 +31,7 @@ export const importViewProps = buildProps({
         default: '',
     },
     readSuccess: {
-        type: definePropType<ReadSuccessFn>(Function)
+        type: definePropType<ReadSuccessFn>(Function),
     },
     returnFileName: {
         type: definePropType<ReturnFileNameFn>(Function)
@@ -59,7 +60,7 @@ export const importViewProps = buildProps({
     formatter: {
         type: Function
     },
-    dialogWidth: {
+    width: {
         type: String,
         default: '80%'
     },

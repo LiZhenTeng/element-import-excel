@@ -4,12 +4,9 @@
 
 ##  Install
 
-::: code-group
-
 ```sh [npm]
 $ npm install element-excel-import
 ```
-:::
 
 ## Full import
 

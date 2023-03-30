@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :title="title" :model-value="visible" v-if="visible" :width="dialogWidth" @close="handlClose"
+  <el-dialog :title="title" :model-value="visible" v-if="visible" :width="width" @close="handlClose"
     :close-on-click-modal="false">
     <el-steps :active="currentStep" finish-status="success">
       <el-step title="上传文件" />
