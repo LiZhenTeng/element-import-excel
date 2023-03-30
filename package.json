@@ -1,10 +1,10 @@
 {
   "name": "element-import-excel",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "This is an import excel component based on element-plus",
   "author": "zhentengli <xingxingmofashu@outlook.com>",
   "scripts": {
-    "dev":"npm run -C play dev",
+    "dev": "npm run -C play dev",
     "build": "vite build && npm run -C internal/build start",
     "docs:dev": "npm run -C docs dev",
     "docs:build": "npm run -C docs build"
