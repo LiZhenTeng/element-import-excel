@@ -21,6 +21,8 @@ jobs:
         with:
           node-version: 16
           cache: npm
+      - name: Install dependencies
+        run: cd docs && npm i
       - run: npm ci
       - name: Build
         run: npm run docs:build
