@@ -4,7 +4,7 @@ import { ExtractPropTypes } from "vue";
 import type ImportView from './import-view.vue'
 
 export type Type = 'success' | 'warning' | 'error' | 'info';
-export type Tip = { title?: string, description: string, type?: Type,closable?:boolean };
+export type Tip = { title?: string, description: string, type?: Type, closable?: boolean };
 export type Column = Record<string, string>;
 
 export type Tips = Array<Tip>;
@@ -16,6 +16,9 @@ export type ReadSuccessFn = (data: Data) => Promise<any>
 export type ReturnFileNameFn = (fileName: string) => void
 
 export const importViewProps = buildProps({
+    sheetName: {
+        type: String
+    },
     /**
      * @description table scroll
      */

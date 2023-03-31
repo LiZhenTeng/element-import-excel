@@ -18,7 +18,7 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { excel } from '../../../utils/excel';
+import { readExcel } from '../../../utils/excel';
 import { inject, ref } from 'vue'
 import { ElNotification, ElAlert, ElUpload, ElIcon } from 'element-plus';
 import type { UploadUserFile } from 'element-plus';
@@ -47,20 +47,20 @@ const fakeRequeset = () => {
 const beforeUpload = async (file: File) => {
     if (isLoading.value) return;
     if (!checkType(file)) {
-        ElNotification.error({ title: "上传出错了", message: `文件：${file.name} 文件类型错误，请在模板文件上修改后上传` });
+        ElNotification.error({ title: "Upload error", message: `file：${file.name} the file type is incorrect. Please modify the template file and upload it` });
         return false;
     }
     isLoading.value = true;
     try {
-        let excelData = await excel(file);
+        let excelData = await readExcel(file,props.sheetName);
         if (!excelData) {
-            ElNotification.error({ title: '上传出错了', message: '文件读取出错，请重新上传。' });
+            ElNotification.error({ title: 'Upload error', message: 'Error reading file, please upload again.' });
             return false;
         }
         const { columns, tableData } = excelData;
 
         if (!(columns.length && tableData.length)) {
-            ElNotification.error({ title: '上传出错了', message: '请打开模板文件, 并填写数据' });
+            ElNotification.error({ title: 'Upload error', message: 'Please open the template file and fill in the data' });
         } else {
             fields.value =
                 Object.keys(props.fields).length > 0
@@ -79,7 +79,7 @@ const beforeUpload = async (file: File) => {
                 goNext(isVaild);
         }
     } catch (e: any) {
-        ElNotification.error({ title: '上传出错了', message: e.message });
+        ElNotification.error({ title: 'Upload error', message: e.message });
     } finally {
         isLoading.value = false;
     }

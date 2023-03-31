@@ -71,6 +71,20 @@
   ```
   导入数据的字段，fields对象中key值为读取Excel成功后，返回对象数组中字段的key。fields对象中的值为Excel标题行。
 
+## sheetName
+
+- **类型**: `string`
+
+- **默认值**：`undefined`
+
+- **用法**：
+  ```vue
+  <import-view :sheet-name="'Sheet1'" />
+  ```
+  ::: tip
+  sheet name选项为undefined时，默认读取第一个Sheet
+  :::
+
 ## visible
 
 - **类型**: `boolean`

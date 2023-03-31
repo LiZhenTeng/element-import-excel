@@ -4,7 +4,7 @@ import { Data, Fields } from "../components/home/src/import-view";
 export const checkType = (file: File) => {
     const fileExt = file.name.split(".").pop()?.toLocaleLowerCase();
     const extArr = ["xlsx", "xls", "csv"];
-    if (!fileExt) throw new Error("未解析文件后缀")
+    if (!fileExt) throw new Error("Unresolved file suffix")
     return extArr.includes(fileExt);
 }
 export const checkTableTitle = (columns: Array<string>, fields: Fields) => {
@@ -13,7 +13,7 @@ export const checkTableTitle = (columns: Array<string>, fields: Fields) => {
     titles.forEach((item) => {
         if (!columns.includes(item)) {
             isVaild = false;
-            ElNotification.error({ title: '数据出错了', message: item + '列未找到' })
+            ElNotification.error({ title: 'Data error', message: item + 'column not found' })
         }
     });
     return isVaild;

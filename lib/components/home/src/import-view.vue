@@ -6,7 +6,7 @@
       <el-step title="确认数据" />
       <el-step title="完成" />
     </el-steps>
-    <import-upload :fields="fieldsCopy" :tips="tips" @upload="handleUpload" v-if="currentStep === 1" />
+    <import-upload :sheet-name="sheetName" :fields="fieldsCopy" :tips="tips" @upload="handleUpload" v-if="currentStep === 1" />
     <import-data :append="append" :fields="fieldsCopy" :formatter="formatter" :rules="rules" :table-data="tableData"
       :scroll="scroll" :can-next="canNext" @pre="handleStep3Pre" v-if="currentStep === 2" :read-success="readSuccess" />
     <br>

@@ -11,5 +11,5 @@ const readSuccess: ReadSuccessFn = (data: Array<any>) => Promise.resolve(data);
 
 <template>
   <ElButton @click="visible = true">Import</ElButton>
-  <ImportView :visible="visible" :fields="fields" @close="visible = false" :read-success="readSuccess" />
+  <ImportView :visible="visible" :fields="fields"  @close="visible = false" :read-success="readSuccess" />
 </template>
