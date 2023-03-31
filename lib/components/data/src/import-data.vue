@@ -37,7 +37,7 @@
 </template>
 <script lang="ts" setup>
 import { inject, ref, computed, onMounted } from 'vue';
-import { ElNotification, ElMessage, ElTable, ElTableColumn, ElSpace, ElButton, ElTooltip, vLoading } from 'element-plus'
+import { ElNotification, ElTabs, ElTabPane, ElMessage, ElTable, ElTableColumn, ElSpace, ElButton, ElTooltip, vLoading } from 'element-plus'
 import Schema from 'async-validator';
 import { importDataProps, importDataEmits, ErrorData } from './import-data';
 import { Data } from '../../home/src/import-view';
@@ -49,6 +49,8 @@ import 'element-plus/es/components/space/style/css'
 import 'element-plus/es/components/button/style/css'
 import 'element-plus/es/components/tooltip/style/css'
 import 'element-plus/es/components/loading/style/css'
+import 'element-plus/es/components/tabs/style/css'
+import 'element-plus/es/components/tab-pane/style/css'
 
 const props = defineProps(importDataProps);
 const emit = defineEmits(importDataEmits);

@@ -24,8 +24,7 @@ import { ElNotification, ElAlert, ElUpload, ElIcon } from 'element-plus';
 import type { UploadUserFile } from 'element-plus';
 import { UploadFilled } from '@element-plus/icons-vue'
 import { importUploadProps, importUploadEmits } from './import-upload'
-import { ArrayToObject, changeDatakeyAndFilter, checkTableTitle, checkType } from '../../../utils';
-import { Fields } from '../../home/src/import-view';
+import { changeDatakeyAndFilter, checkTableTitle, checkType } from '../../../utils';
 import 'element-plus/es/components/notification/style/css'
 import 'element-plus/es/components/alert/style/css'
 import 'element-plus/es/components/upload/style/css'
@@ -38,7 +37,6 @@ const goNext: Function | undefined = inject<Function>('goNext')
 
 const fileList = ref<Array<UploadUserFile>>([]);
 const isLoading = ref(false);
-const fields = ref<Fields>({});
 
 const fakeRequeset = () => {
     fileList.value = [];
@@ -52,31 +50,31 @@ const beforeUpload = async (file: File) => {
     }
     isLoading.value = true;
     try {
-        let excelData = await readExcel(file,props.sheetName);
+        let excelData = await readExcel(file, props.sheetName);
         if (!excelData) {
             ElNotification.error({ title: 'Upload error', message: 'Error reading file, please upload again.' });
             return false;
         }
-        const { columns, tableData } = excelData;
+        if (Object.prototype.toString.call(Object.values(excelData)[0]) === '[object Array]') {
 
-        if (!(columns.length && tableData.length)) {
-            ElNotification.error({ title: 'Upload error', message: 'Please open the template file and fill in the data' });
+            const { columns, tableData } = excelData as Record<string, Array<any>>;
+
+            if (!(columns.length && tableData.length)) {
+                ElNotification.error({ title: 'Upload error', message: 'Please open the template file and fill in the data' });
+            } else {
+                
+                let isVaild = checkTableTitle(columns, props.fields);
+                emit(
+                    "upload",
+                    columns,
+                    changeDatakeyAndFilter(tableData, props.fields),
+                    file.name     
+                );
+                if (goNext)
+                    goNext(isVaild);
+            }
         } else {
-            fields.value =
-                Object.keys(props.fields).length > 0
-                    ? props.fields
-                    : ArrayToObject(columns);
-
-            let isVaild = checkTableTitle(columns, props.fields);
-            emit(
-                "upload",
-                columns,
-                changeDatakeyAndFilter(tableData, props.fields),
-                file.name,
-                fields.value
-            );
-            if (goNext)
-                goNext(isVaild);
+            console.log(excelData)
         }
     } catch (e: any) {
         ElNotification.error({ title: 'Upload error', message: e.message });

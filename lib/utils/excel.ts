@@ -1,10 +1,10 @@
-import { allTrim } from './allTrim'
 import { utils, read, WorkBook } from 'xlsx';
 import type { WorkSheet } from 'xlsx';
-import { ElMessage } from 'element-plus';
+import { ElMessage, ElNotification } from 'element-plus';
+import type { Data, Fields } from '@/components';
 export namespace XLSX {
-    export type SheetName = string
-    export type ExcelData = Record<string, Array<any>>
+    export type SheetName = string | string[]
+    export type ExcelData = Record<string, Array<any> | Record<string, Array<any>>>
 }
 export namespace FileReader {
     export type result = string | ArrayBuffer | null | undefined
@@ -32,11 +32,24 @@ const readSheets = (excelData: FileReader.result, sheetName?: XLSX.SheetName) =>
         const firstSheetName = workbook.SheetNames[0]
         return transforms(workbook, firstSheetName)
     } else {
-        if (!worksheetNames.includes(sheetName)) {
-            ElMessage.error('Not Found Sheet Name');
-            throw Error('Not Found Sheet Name')
+        if (typeof sheetName === 'string') {
+            if (!worksheetNames.includes(sheetName)) {
+                ElMessage.error('Not Found Sheet Name');
+                throw Error('Not Found Sheet Name')
+            } else {
+                return transforms(workbook, sheetName)
+            }
         } else {
-            return transforms(workbook, sheetName)
+            return sheetName.reduce<XLSX.ExcelData>((p, c) => {
+                if (worksheetNames.includes(c))
+                    Object.defineProperty(p, c, {
+                        value: transforms(workbook, c),
+                        configurable: true,
+                        enumerable: true,
+                        writable: true
+                    })
+                return p
+            }, {})
         }
     }
 }
@@ -50,8 +63,8 @@ const transforms = (workbook: WorkBook, sheetName: string) => {
         dateNF: 'yyyy-MM-dd',
     }).map((x, i) => ({ ...x, key: i + 1 }));
     const result: XLSX.ExcelData = {
-        columns: allTrim(columns, true) as Array<string>,
-        tableData: allTrim(tableData, true) as Array<any>
+        columns: columns,
+        tableData: tableData
     }
     return result
 }
@@ -70,3 +83,34 @@ export const readExcel = (file: File, sheetName?: XLSX.SheetName): Promise<XLSX.
         }
     })
 }
+
+export const checkType = (file: File) => {
+    const fileExt = file.name.split(".").pop()?.toLocaleLowerCase();
+    const extArr = ["xlsx", "xls", "csv"];
+    if (!fileExt) throw new Error("Unresolved file suffix")
+    return extArr.includes(fileExt);
+}
+
+
+export const checkTableTitle = (columns: Array<string>, fields: Fields) => {
+    const titles = Object.values(fields);
+    let isVaild = true;
+    titles.forEach((item) => {
+        if (!columns.includes(item)) {
+            isVaild = false;
+            ElNotification.error({ title: 'Data error', message: item + 'column not found' })
+        }
+    });
+    return isVaild;
+}
+
+export const changeDatakeyAndFilter = (data: Data, fields: Fields): Data =>
+    data.reduce<Data>((p, c, i) => {
+        p.push({
+            ...Object.keys(fields).reduce((pre, cur) => {
+                Object.defineProperty(pre, cur, { value: c[fields[cur]], configurable: true, enumerable: true })
+                return pre
+            }, {}), key: i + 1
+        })
+        return p
+    }, []);

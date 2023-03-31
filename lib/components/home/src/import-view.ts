@@ -2,6 +2,7 @@ import { Rules } from "async-validator";
 import { buildProps, definePropType } from '../../../utils/vue/props/runtime';
 import { ExtractPropTypes } from "vue";
 import type ImportView from './import-view.vue'
+import type {XLSX} from '@/utils'
 
 export type Type = 'success' | 'warning' | 'error' | 'info';
 export type Tip = { title?: string, description: string, type?: Type, closable?: boolean };
@@ -17,7 +18,7 @@ export type ReturnFileNameFn = (fileName: string) => void
 
 export const importViewProps = buildProps({
     sheetName: {
-        type: String
+        type: definePropType<XLSX.SheetName>([String,Array])
     },
     /**
      * @description table scroll

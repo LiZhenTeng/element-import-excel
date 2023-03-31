@@ -6,8 +6,8 @@
       <el-step title="确认数据" />
       <el-step title="完成" />
     </el-steps>
-    <import-upload :sheet-name="sheetName" :fields="fieldsCopy" :tips="tips" @upload="handleUpload" v-if="currentStep === 1" />
-    <import-data :append="append" :fields="fieldsCopy" :formatter="formatter" :rules="rules" :table-data="tableData"
+    <import-upload :sheet-name="sheetName" :fields="fields" :tips="tips" @upload="handleUpload" v-if="currentStep === 1" />
+    <import-data :append="append" :fields="fields" :formatter="formatter" :rules="rules" :table-data="tableData"
       :scroll="scroll" :can-next="canNext" @pre="handleStep3Pre" v-if="currentStep === 2" :read-success="readSuccess" />
     <br>
     <import-finish @finish="handleFinish" v-if="currentStep === 3" :show-finish-result="showFinishResult"
@@ -17,7 +17,7 @@
 <script lang="ts" setup>
 import { provide, ref, defineEmits, defineProps } from 'vue';
 import { ElDialog, ElSteps, ElStep } from 'element-plus'
-import {  Data, Fields, importViewEmits, importViewProps } from './import-view'
+import {  Data,  importViewEmits, importViewProps } from './import-view'
 import ImportUpload from "../../upload/src/import-upload.vue";
 import ImportData from "../../data";
 import ImportFinish from "../../finish";
@@ -32,12 +32,8 @@ const tableData = ref<Data>([])
 const columns = ref<string[]>([]);
 const currentStep = ref(1);
 const canNext = ref(true);
-const fieldsCopy = ref<Fields>({});
 
-fieldsCopy.value = props.fields;
-
-const handleUpload = (c: string[], t: Data, fileName: string, f: Fields) => {
-  fieldsCopy.value = f;
+const handleUpload = (c: string[], t: Data, fileName: string) => {
   columns.value = c;
   tableData.value = t;
   if (props.returnFileName) {

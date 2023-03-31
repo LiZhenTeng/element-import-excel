@@ -2,10 +2,11 @@ import { buildProps, definePropType } from '../../../utils/vue/props/runtime';
 import { ExtractPropTypes } from "vue";
 import { Data, Fields, Tips } from "../../home/src/import-view";
 import type ImportUpload from './import-upload.vue'
+import type {XLSX} from '@/utils'
 
 export const importUploadProps = buildProps({
     sheetName: {
-        type: String
+        type: definePropType<XLSX.SheetName>([String,Array])
     },
     tips: {
         type: definePropType<Tips>(Array),
@@ -20,6 +21,6 @@ export const importUploadProps = buildProps({
 export type ImportUploadProps = ExtractPropTypes<typeof importUploadProps>
 
 export const importUploadEmits = {
-    upload: (columns: string[], data: Data, fileName: string, fields: Fields) => { }
+    upload: (columns: string[], data: Data, fileName: string) => { }
 }
 export type ImportUploadInstance = InstanceType<typeof ImportUpload>
