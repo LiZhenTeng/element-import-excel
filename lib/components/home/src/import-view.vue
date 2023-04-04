@@ -6,7 +6,8 @@
       <el-step title="确认数据" />
       <el-step title="完成" />
     </el-steps>
-    <import-upload :sheet-name="sheetName" :fields="fields" :tips="tips" @upload="handleUpload" v-if="currentStep === 1" />
+    <import-upload :sheet-name="sheetName" :fields="fields" :tips="tips" @upload="handleUpload"
+      v-if="currentStep === 1" />
     <import-data :append="append" :fields="fields" :formatter="formatter" :rules="rules" :table-data="tableData"
       :scroll="scroll" :can-next="canNext" @pre="handleStep3Pre" v-if="currentStep === 2" :read-success="readSuccess" />
     <br>
@@ -17,7 +18,7 @@
 <script lang="ts" setup>
 import { provide, ref, defineEmits, defineProps } from 'vue';
 import { ElDialog, ElSteps, ElStep } from 'element-plus'
-import {  Data,  importViewEmits, importViewProps } from './import-view'
+import { Data, importViewEmits, importViewProps } from './import-view'
 import ImportUpload from "../../upload/src/import-upload.vue";
 import ImportData from "../../data";
 import ImportFinish from "../../finish";
