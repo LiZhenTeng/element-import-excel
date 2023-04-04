@@ -10,7 +10,7 @@ $ npm install element-excel-import
 ```
 ##  Documentation
 
-Document: <https://nightcatsama.github.io/vue-slider-component>
+Document: <https://lizhenteng.github.io/element-import-excel/>
 
 ## Full import
 
