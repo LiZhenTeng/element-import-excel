@@ -2,11 +2,15 @@
 
 > An import excel component based on element-plus
 
+
 ##  Install
 
 ```sh [npm]
 $ npm install element-excel-import
 ```
+##  Documentation
+
+Document: <https://nightcatsama.github.io/vue-slider-component>
 
 ## Full import
 
