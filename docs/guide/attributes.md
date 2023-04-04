@@ -105,7 +105,7 @@
 
 - **用法**：
   ```ts
-  import type { Rules } from 'async-validator';
+  import type { Rules } from 'element-import-excel';
   const rules = ref<Rules>({ email: { type: 'email', message: '请填写正确的Email' } })
   ```
   ```vue
