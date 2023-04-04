@@ -17,7 +17,7 @@
     "es"
   ],
   "types": "types/index.d.ts",
-  "license": "ISC",
+  "license": "MIT",
   "keywords": [
     "element",
     "import",
