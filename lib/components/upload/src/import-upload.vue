@@ -51,26 +51,22 @@ const beforeUpload = async (file: File) => {
             ElNotification.error({ title: 'Upload error', message: 'Error reading file, please upload again.' });
             return false;
         }
-        if (Object.prototype.toString.call(Object.values(excelData)[0]) === '[object Array]') {
 
-            const { columns, tableData } = excelData as Record<string, Array<any>>;
+        const { columns, tableData } = excelData as Record<string, Array<any>>;
 
-            if (!(columns.length && tableData.length)) {
-                ElNotification.error({ title: 'Upload error', message: 'Please open the template file and fill in the data' });
-            } else {
-                
-                let isVaild = checkTableTitle(columns, props.fields);
-                emit(
-                    "upload",
-                    columns,
-                    changeDatakeyAndFilter(tableData, props.fields),
-                    file.name     
-                );
-                if (goNext)
-                    goNext(isVaild);
-            }
+        if (!(columns.length && tableData.length)) {
+            ElNotification.error({ title: 'Upload error', message: 'Please open the template file and fill in the data' });
         } else {
-            console.log(excelData)
+
+            let isVaild = await checkTableTitle(columns, props.fields);
+            emit(
+                "upload",
+                columns,
+                changeDatakeyAndFilter(tableData, props.fields),
+                file.name
+            );
+            if (goNext)
+                goNext(isVaild);
         }
     } catch (e: any) {
         ElNotification.error({ title: 'Upload error', message: e.message });
