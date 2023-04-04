@@ -24,8 +24,3 @@ types/
 *.njsproj
 *.sln
 *.sw?
-
-# lock
-yarn.lock
-pnpm-lock.yaml
-package-lock.json
