@@ -3,7 +3,7 @@ import type { WorkSheet } from 'xlsx';
 import { ElMessage, ElNotification } from 'element-plus';
 import type { Data, Fields } from '@/components';
 export namespace XLSX {
-    export type SheetName = string | string[]
+    export type SheetName = string
     export type ExcelData = Record<string, Array<any> | Record<string, Array<any>>>
 }
 export namespace FileReader {
@@ -32,24 +32,11 @@ const readSheets = (excelData: FileReader.result, sheetName?: XLSX.SheetName) =>
         const firstSheetName = workbook.SheetNames[0]
         return transforms(workbook, firstSheetName)
     } else {
-        if (typeof sheetName === 'string') {
-            if (!worksheetNames.includes(sheetName)) {
-                ElMessage.error('Not Found Sheet Name');
-                throw Error('Not Found Sheet Name')
-            } else {
-                return transforms(workbook, sheetName)
-            }
+        if (!worksheetNames.includes(sheetName)) {
+            ElMessage.error('Not Found Sheet Name');
+            throw Error('Not Found Sheet Name')
         } else {
-            return sheetName.reduce<XLSX.ExcelData>((p, c) => {
-                if (worksheetNames.includes(c))
-                    Object.defineProperty(p, c, {
-                        value: transforms(workbook, c),
-                        configurable: true,
-                        enumerable: true,
-                        writable: true
-                    })
-                return p
-            }, {})
+            return transforms(workbook, sheetName)
         }
     }
 }

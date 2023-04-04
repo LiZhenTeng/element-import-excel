@@ -6,7 +6,7 @@ import type {XLSX} from '@/utils'
 
 export const importUploadProps = buildProps({
     sheetName: {
-        type: definePropType<XLSX.SheetName>([String,Array])
+        type: definePropType<XLSX.SheetName>(String)
     },
     tips: {
         type: definePropType<Tips>(Array),

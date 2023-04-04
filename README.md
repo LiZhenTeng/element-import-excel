@@ -36,3 +36,8 @@ import { ImportView } from 'element-import-excel'
 import 'element-import-excel/dist/index.css'
 </script>
 ```
+
+## License
+
+Element Import Excel is open source software licensed as
+[MIT](https://github.com/LiZhenTeng/element-import-excel/blob/master/LICENSE).

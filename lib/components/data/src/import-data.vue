@@ -37,20 +37,11 @@
 </template>
 <script lang="ts" setup>
 import { inject, ref, computed, onMounted } from 'vue';
-import { ElNotification, ElTabs, ElTabPane, ElMessage, ElTable, ElTableColumn, ElSpace, ElButton, ElTooltip, vLoading } from 'element-plus'
+import { ElNotification, ElMessage, ElTable, ElTableColumn, ElSpace, ElButton, ElTooltip, vLoading } from 'element-plus'
 import Schema from 'async-validator';
 import { importDataProps, importDataEmits, ErrorData } from './import-data';
 import { Data } from '../../home/src/import-view';
-import 'element-plus/es/components/notification/style/css'
-import 'element-plus/es/components/message/style/css'
-import 'element-plus/es/components/table/style/css'
-import 'element-plus/es/components/table-column/style/css'
-import 'element-plus/es/components/space/style/css'
-import 'element-plus/es/components/button/style/css'
-import 'element-plus/es/components/tooltip/style/css'
-import 'element-plus/es/components/loading/style/css'
-import 'element-plus/es/components/tabs/style/css'
-import 'element-plus/es/components/tab-pane/style/css'
+import '../style'
 
 const props = defineProps(importDataProps);
 const emit = defineEmits(importDataEmits);

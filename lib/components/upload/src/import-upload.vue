@@ -25,11 +25,7 @@ import type { UploadUserFile } from 'element-plus';
 import { UploadFilled } from '@element-plus/icons-vue'
 import { importUploadProps, importUploadEmits } from './import-upload'
 import { changeDatakeyAndFilter, checkTableTitle, checkType } from '../../../utils';
-import 'element-plus/es/components/notification/style/css'
-import 'element-plus/es/components/alert/style/css'
-import 'element-plus/es/components/upload/style/css'
-import 'element-plus/es/components/icon/style/css'
-
+import '../style'
 
 const props = defineProps(importUploadProps)
 const emit = defineEmits(importUploadEmits)

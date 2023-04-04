@@ -21,9 +21,7 @@ import {  Data,  importViewEmits, importViewProps } from './import-view'
 import ImportUpload from "../../upload/src/import-upload.vue";
 import ImportData from "../../data";
 import ImportFinish from "../../finish";
-import 'element-plus/es/components/dialog/style/css'
-import 'element-plus/es/components/steps/style/css'
-import 'element-plus/es/components/step/style/css'
+import '../style'
 
 const props = defineProps(importViewProps)
 const emit = defineEmits(importViewEmits)

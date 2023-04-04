@@ -1,0 +1,8 @@
+import 'element-plus/es/components/notification/style/css'
+import 'element-plus/es/components/message/style/css'
+import 'element-plus/es/components/table/style/css'
+import 'element-plus/es/components/table-column/style/css'
+import 'element-plus/es/components/space/style/css'
+import 'element-plus/es/components/button/style/css'
+import 'element-plus/es/components/tooltip/style/css'
+import 'element-plus/es/components/loading/style/css'

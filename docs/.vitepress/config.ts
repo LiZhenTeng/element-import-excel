@@ -7,16 +7,31 @@ export const config: UserConfig<DefaultTheme.Config> = {
     lastUpdated: true,
     cleanUrls: true,
     themeConfig: {
-        sidebar: [{
-            text: 'Getting Started',
-            link: '/guide/getting-started'
+        nav: [{
+            text: 'Guide',
+            link: '/guide/getting-started',
+            activeMatch: '/guide/'
         }, {
-            text: 'Attributes',
-            link: '/guide/attributes'
-        }, {
-            text: 'Events',
-            link: '/guide/events'
+            text: 'Examples',
+            link: '/examples/basic',
+            activeMatch: '/examples/'
         }],
+        sidebar: {
+            '/guide/': [{
+                text: 'Getting Started',
+                link: '/guide/getting-started'
+            }, {
+                text: 'Attributes',
+                link: '/guide/attributes'
+            }, {
+                text: 'Events',
+                link: '/guide/events'
+            }],
+            '/examples/':[{
+                text:'Basic',
+                link:'/examples/basic'
+            }]
+        },
         socialLinks: [
             { icon: 'github', link: 'https://github.com/LiZhenTeng/element-import-excel' }
         ],
