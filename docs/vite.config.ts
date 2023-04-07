@@ -17,6 +17,7 @@ export default defineConfig({
     },
   },
   ssr:{
+    external:[],
     noExternal:true
   },
   plugins: [MarkdownTransform()],
