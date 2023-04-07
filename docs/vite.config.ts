@@ -1,5 +1,6 @@
-import { resolve } from 'path'
-import { defineConfig } from 'vite'
+import { resolve } from "path";
+import { defineConfig } from "vite";
+import { MarkdownTransform } from "./.vitepress/plugins/markdown-transform";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -7,12 +8,16 @@ export default defineConfig({
     host: true,
     port: 3000,
     fs: {
-      allow: [resolve(__dirname,'..')]
-    }
+      allow: [resolve(__dirname, "..")],
+    },
   },
   resolve: {
     alias: {
-      'element-import-excel': resolve(__dirname, '..', './lib')
-    }
-  }
-})
+      "element-import-excel": resolve(__dirname, "..", "./lib"),
+    },
+  },
+  ssr:{
+    noExternal:true
+  },
+  plugins: [MarkdownTransform()],
+});

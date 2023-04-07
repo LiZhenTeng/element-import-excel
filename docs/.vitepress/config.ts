@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress'
 import type { UserConfig, DefaultTheme } from 'vitepress'
+import { mdPlugin } from './config/plugins'
 
 export const config: UserConfig<DefaultTheme.Config> = {
     base: '/element-import-excel/',
@@ -36,6 +37,9 @@ export const config: UserConfig<DefaultTheme.Config> = {
             { icon: 'github', link: 'https://github.com/LiZhenTeng/element-import-excel' }
         ],
     },
+    markdown:{
+        config:(md)=>mdPlugin(md)
+    }
 }
 
 export default defineConfig(config)
